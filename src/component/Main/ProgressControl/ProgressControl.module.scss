@@ -1,0 +1,71 @@
+// --- varaible
+$screen-break-point: 749.5px;
+// --- Style
+section.progressControlContainer {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+section.buttonGroup {
+  padding-top: 24px;
+  border-top: 1px solid #e6e6eb;
+  button {
+    display: flex;
+    align-items: center;
+    height: 46px;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    border-radius: 8px;
+    border-width: 0px;
+    padding: 0px;
+
+    & > svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    &.prev {
+      background-color: transparent;
+      line-height: 20px;
+      font-weight: 400;
+      color: #000000;
+
+      > svg {
+        margin-right: 12px;
+      }
+    }
+    &.next {
+      justify-content: center;
+      width: 174px;
+      font-weight: 500;
+      line-height: 17px;
+      background: var(--pink);
+      color: #ffffff;
+      margin-left: auto;
+
+      > svg {
+        margin-left: 12px;
+      }
+    }
+  }
+}
+// --- RWD
+@media screen and (max-width: $screen-break-point) {
+  section.progressControlContainer {
+    position: relative;
+    margin-top: 24px;
+    margin-bottom: 40px;
+  }
+  section.buttonGroup {
+    button.next {
+      width: 156px;
+    }
+
+    &[data-phase="address"] {
+      button.next {
+        width: 100%;
+      }
+    }
+  }
+}

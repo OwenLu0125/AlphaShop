@@ -1,0 +1,145 @@
+// --- variable
+$screen-break-point: 749.5px;
+// --- style
+
+%done-phase {
+  .icon {
+    display: inline-block;
+  }
+  .text {
+    display: none;
+  }
+}
+%undone-phase {
+  .icon {
+    display: none;
+  }
+  .text {
+    display: inline-block;
+  }
+}
+
+%current-text {
+  color: var(--progress-current-color);
+}
+%current-icon {
+  @extend %current-text;
+  background-color: transparent;
+  border: 1px solid var(--progress-current-color);
+  @extend %undone-phase;
+}
+%undone-text {
+  color: var(--progress-undone-color);
+}
+%undone-icon {
+  @extend %undone-text;
+  background-color: transparent;
+  border: 1px solid var(--progress-undone-color);
+  @extend %undone-phase;
+}
+%done-text {
+  @extend %current-text;
+}
+%done-icon {
+  color: var(--progress-done-color);
+  background-color: transparent;
+  @extend %done-phase;
+}
+
+// ----- style
+.progressContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 48px;
+  .progressBar {
+    display: flex;
+    flex-grow: 1;
+    max-width: 60px;
+    height: 1px;
+    margin: 0px 8px;
+    border-width: 2px;
+    border-style: solid;
+  }
+
+  .progressGroup {
+    display: flex;
+
+    .progressIcon {
+      display: inline-block;
+      position: relative;
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+      border-radius: 50%;
+
+      .text {
+        width: inherit;
+        height: inherit;
+        position: absolute;
+        top: 0px;
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 24px;
+        text-align: center;
+        color: inherit;
+      }
+      .icon {
+        width: inherit;
+        height: inherit;
+      }
+    }
+    .progressLabel {
+      font-weight: 400;
+      line-height: 24px;
+      color: var(--main-text);
+    }
+  }
+}
+
+// ----- 靜態版本，停在AddressPhase
+.progressContainer {
+  .progressBar {
+    &[data-order="1"] {
+      border-color: var(--done-progress-border);
+    }
+    &[data-order="2"] {
+      border-color: var(--undone-progress-border);
+    }
+  }
+  span[dataphase="address"] {
+    .progressIcon {
+      @extend %current-icon;
+      background-color: var(--pg-addr-bg-color);
+      border-color: var(--pg-addr-bg-color);
+      color: var(--pg-addr-color);
+    }
+  }
+  span[dataphase="shipping"],
+  span[dataphase="credit-card"] {
+    .progressIcon {
+      @extend %undone-icon;
+    }
+  }
+}
+// --- RWD
+@media screen and (max-width: $screen-break-point) {
+  section.progressContainer {
+    margin-top: 24px;
+
+    .progressGroup {
+      .progressIcon {
+        width: 32px;
+        height: 32px;
+        margin-right: 0px;
+
+        .text {
+          line-height: 32px;
+        }
+      }
+    }
+    .progressLabel {
+      display: none;
+    }
+  }
+}
