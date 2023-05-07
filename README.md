@@ -1,6 +1,7 @@
 # AlphaShop - React
 
 ![](public/Main-01.png)
+![](public/Main-02.png)
 
 ##  專案介紹
 
