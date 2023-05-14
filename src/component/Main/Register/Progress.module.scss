@@ -97,28 +97,73 @@ $screen-break-point: 749.5px;
   }
 }
 
-// ----- 靜態版本，停在AddressPhase
 .progressContainer {
-  .progressBar {
+  // step = 0
+  span[step="0"] {
+    &[dataphase="address"] {
+      .progressIcon {
+        @extend %current-icon;
+        background-color: var(--pg-addr-bg-color);
+        color: var(--pg-addr-color);
+      }
+    }
+
+    &[dataphase="shipping"],
+    &[dataphase="credit-card"] {
+      .progressIcon {
+        @extend %undone-icon;
+      }
+    }
+
     &[data-order="1"] {
       border-color: var(--done-progress-border);
     }
+
     &[data-order="2"] {
       border-color: var(--undone-progress-border);
     }
   }
-  span[dataphase="address"] {
-    .progressIcon {
-      @extend %current-icon;
-      background-color: var(--pg-addr-bg-color);
-      border-color: var(--pg-addr-bg-color);
-      color: var(--pg-addr-color);
+
+  // step = 1
+  span[step="1"] {
+    &[dataphase="address"] {
+      .progressIcon {
+        @extend %done-icon;
+      }
+    }
+
+    &[dataphase="shipping"] {
+      .progressIcon {
+        @extend %current-icon;
+      }
+    }
+
+    &[dataphase="credit-card"] {
+      .progressIcon {
+        @extend %undone-icon;
+      }
+    }
+
+    &[data-order="1"],
+    &[data-order="2"] {
+      border-color: var(--done-progress-border);
     }
   }
-  span[dataphase="shipping"],
-  span[dataphase="credit-card"] {
-    .progressIcon {
-      @extend %undone-icon;
+
+  // step = 2
+  span[step="2"] {
+
+    &[dataphase="address"],
+    &[dataphase="shipping"] {
+      .progressIcon {
+        @extend %done-icon;
+      }
+    }
+
+    &[dataphase="credit-card"] {
+      .progressIcon {
+        @extend %current-icon;
+      }
     }
   }
 }
