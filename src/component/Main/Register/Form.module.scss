@@ -11,3 +11,17 @@ section.formContainer {
     margin-top: 24px;
   }
 }
+
+.address,
+.shipping,
+.creddit {
+  display: none;
+}
+// - 綁定dataphase顯示各階段表單
+div {
+  &.address[dataphase="0"],
+  &.shipping[dataphase="1"],
+  &.creddit[dataphase="2"] {
+    display: block;
+  }
+}

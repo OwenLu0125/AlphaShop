@@ -1,28 +1,26 @@
-import { AddressPhase, ShippingPhase, CreditPhase } from './FormPhase';
 import styles from './Form.module.scss';
+import { useContext } from 'react'
+import { MainContext } from '../../../context/MainContext'
+import AddressPhase from './FormPhase/AddressPhase'
+import CreditPhase from './FormPhase/ShippingPhase'
+import ShippingPhase from './FormPhase/CreditPhase'
 
-const Form = ({ step }) => {
-  // 根據 step 的值來渲染相對應的組件
-  const renderPhase = () => {
-    switch (step) {
-      case 0:
-        return <AddressPhase />;
-      case 1:
-        return <ShippingPhase />;
-      case 2:
-        return <CreditPhase />;
-      default:
-        return null;
-    }
-  };
 
+const Form = () => {
+  const { step } = useContext(MainContext)
   return (
-    <>
-      <section className={`${styles.formContainer} col col-12`}>
-        {renderPhase()} {/* 根據 step 渲染相應的組件 */}
-      </section>
-    </>
-  );
-};
+    <section className={`${styles.formContainer}`}>
+      <div className={styles.address} dataphase={step}>
+        <AddressPhase />
+      </div>
+      <div className={styles.shipping} dataphase={step}>
+        <ShippingPhase />
+      </div>
+      <div className={styles.creddit} dataphase={step}>
+        <CreditPhase />
+      </div>
+    </section>
+  )
+}
 
-export default Form;
+export default Form

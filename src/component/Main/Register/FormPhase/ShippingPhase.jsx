@@ -1,11 +1,17 @@
 import styles from './ShippingPhase.module.scss'
+import { useContext } from 'react'
+import { MainContext } from '../../../../context/MainContext'
 const PhaseItem = ({ id, name, text, period, price }) => {
+  const { onShippingOption } = useContext(MainContext)
   return (
     <label className={`${styles.radioGroup} col col-12`}>
       <input
         id={id}
         type='radio'
         name={name}
+        onClick={() => { 
+          onShippingOption?.({price})
+        }}
       />
       <div className={styles.radioInfo}>
         <div className={`${styles.row} col col-12`}>

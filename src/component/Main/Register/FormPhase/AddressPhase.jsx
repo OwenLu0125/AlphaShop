@@ -1,5 +1,8 @@
 import styles from './AddressPhase.module.scss'
 import InputGroup from './InputGroup'
+import { useContext } from 'react'
+import { MainContext } from '../../../../context/MainContext'
+
 const citySelection = [
   { id: 'KLU', city: '基隆市' },
   { id: 'TPH', city: '新北市' },
@@ -29,66 +32,87 @@ const citySelection = [
   { id: 'TTT', city: '臺東縣' },
   { id: 'PEH', city: '澎湖縣' },
   { id: 'KMN', city: '金門縣' },
-  { id: 'LNN', city: '連江縣' }
+  { id: 'LNN', city: '連江縣' },
 ]
 const AddressPhase = () => {
+  const { formRef } = useContext(MainContext)
   return (
     <>
-      <form className='col col-12' dataphase='address'>
+      <form className="col col-12" dataphase="address">
         <h3 className={styles.formTitle}>寄送地址</h3>
-        <section className='formBody col col-12'>
+        <section className="formBody col col-12">
           {/* ------------------- row ----------------------- */}
           <div className={`${styles.row} col col-12`}>
             <div className={`${styles.selectGroup} input-w-lg-2 input-w-sm-s1`}>
               <div className={styles.selectLabel}>稱謂</div>
               <div className={styles.selectContainer}>
-                <select>
-                  <option value='mr'>先生</option>
-                  <option value='ms'>女士</option>
-                  <option value='mx'>不明</option>
+                <select
+                  ref={(node) => {
+                    formRef.current.set('稱謂', node)
+                  }}
+                >
+                  <option value="mr">先生</option>
+                  <option value="ms">女士</option>
+                  <option value="mx">不明</option>
                 </select>
               </div>
             </div>
             <InputGroup
-              inputLabel='姓名'
-              placeholder='請輸入姓名'
-              layoutLg='input-w-lg-4'
-              layoutSm='input-w-sm-s2'
+              inputLabel="姓名"
+              placeholder="請輸入姓名"
+              layoutLg="input-w-lg-4"
+              layoutSm="input-w-sm-s2"
+              formRef={formRef}
             />
           </div>
           {/* ------------------- row ----------------------- */}
           <div className={`${styles.row} col col-12`}>
             <InputGroup
-              inputLabel='電話'
-              placeholder='請輸入行動電話'
-              layoutLg='input-w-lg-3'
-              layoutSm='input-w-sm-full'
+              inputLabel="電話"
+              placeholder="請輸入行動電話"
+              layoutLg="input-w-lg-3"
+              layoutSm="input-w-sm-full"
+              formRef={formRef}
             />
             <InputGroup
-              inputLabel='Email'
-              placeholder='請輸入電子郵件'
-              layoutLg='input-w-lg-3'
-              layoutSm='input-w-sm-full'
+              inputLabel="Email"
+              placeholder="請輸入電子郵件"
+              layoutLg="input-w-lg-3"
+              layoutSm="input-w-sm-full"
+              formRef={formRef}
             />
           </div>
           {/* ------------------- row ----------------------- */}
           <div className={`${styles.row} col col-12`}>
-            <div className={`${styles.selectGroup} input-w-lg-2 input-w-sm-full`}>
+            <div
+              className={`${styles.selectGroup} input-w-lg-2 input-w-sm-full`}
+            >
               <div className={styles.selectLabel}>縣市</div>
               <div className={styles.selectContainer}>
-                <select required>
-                  <option value=''>請選擇縣市</option>
-                  {citySelection.map(city =>
-                    <option key={city.id} value={city.id}>{city.city}</option>
+                <select
+                  required
+                  ref={(node) => {
+                    formRef.current.set('縣市', node)
+                  }}
+                >
+                  <option value="">請選擇縣市</option>
+                  {citySelection.map(city => 
+                    <option 
+                    key={city.id} 
+                    value={city.id}
+                    >
+                      {city.city}
+                    </option>
                   )}
                 </select>
               </div>
             </div>
             <InputGroup
-              inputLabel='地址'
-              placeholder='請輸入地址'
-              layoutLg='input-w-lg-4'
-              layoutSm='input-w-sm-full'
+              inputLabel="地址"
+              placeholder="請輸入地址"
+              layoutLg="input-w-lg-4"
+              layoutSm="input-w-sm-full"
+              formRef={formRef}
             />
           </div>
         </section>
