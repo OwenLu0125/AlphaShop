@@ -1,6 +1,14 @@
 import styles from './ProgressControl.module.scss'
+import { useContext } from 'react'
+import { AppContext } from '../../../context/AppContext'
+import { MainContext } from '../../../context/MainContext'
+import { CartContext } from '../../../context/CartContext'
 
-const StepContext =({icons, step, onStepItemChange}) => {
+const StepContext =() => {
+  const { icons } = useContext(AppContext)
+  const {step, onStepItemChange, onSubmit} = useContext(MainContext)
+  const { count } = useContext(CartContext)
+  
   if (step === 0 ) {
     return (
       <section className={`${styles.buttonGroup} col col-12`} dataphase='address'>
@@ -54,7 +62,7 @@ const StepContext =({icons, step, onStepItemChange}) => {
         </button>
         <button
           className={`${styles.next} cursor-point`}
-          // onClick={onSubmit}
+          onClick={() => onSubmit?.({ count })}
         >
           確認下單
         </button>
@@ -63,16 +71,11 @@ const StepContext =({icons, step, onStepItemChange}) => {
   }
 }
 
-const ProgressControl = ({ icons, step,onStepItemChange }) => {
+const ProgressControl = () => {
 return (
     <>
       <section className={`${styles.progressControlContainer} col col-lg-6 col-sm-12`}>
-      <StepContext
-          icons={icons}
-          step={step}
-          onStepItemChange={onStepItemChange}
-          // onSubmit={onSubmit}
-      />
+      <StepContext/>
       </section>
     </>
   )
