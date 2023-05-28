@@ -1,24 +1,13 @@
+
 import styles from './Cart.module.scss'
-import { useState } from 'react'
+import { useContext } from 'react'
+import { AppContext } from '../../../context/AppContext'
+import { CartContext } from '../../../context/CartContext'
+import { MainContext } from '../../../context/MainContext'
 
-const cartData = [
-  {
-    id: '1',
-    name: '貓咪罐罐',
-    img: 'https://picsum.photos/300/300?text=1',
-    price: 100,
-    quantity: 2
-  },
-  {
-    id: '2',
-    name: '貓咪干干',
-    img: 'https://picsum.photos/300/300?text=2',
-    price: 200,
-    quantity: 1
-  }
-]
-
-const ProductListItem = ({ icons, item, onCartItemsChange }) => {
+const ProductListItem = ({ item }) => {
+  const { icons } = useContext(AppContext)
+  const { onCartItemsChange } = useContext(CartContext)
   return (
     <div className={`${styles.productContainer} col col-12`} data-count='0' data-price={item.price}>
       <img className={styles.imgContainer} src={item.img} alt={item.name} />
@@ -53,31 +42,13 @@ const ProductListItem = ({ icons, item, onCartItemsChange }) => {
   )
 }
 
-const Cart = ({ icons }) => {
-  const [items, setItems] = useState(cartData)
-
-  const handleCartItemsChange = ({ id, quantity }) => {
-    if (quantity < 0) {
-      return
-    }
-    setItems((prevItems) => {
-      return prevItems.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            quantity
-          }
-        }
-        return item
-      })
-    })
+const Cart = () => {
+  const { items, count } = useContext(CartContext)
+  const { shippingCost } = useContext(MainContext)
+  // 加上運費
+  if (shippingCost === '$500') {
+    count = count + 500
   }
-
-  // 計算加總金額
-  let count = 0
-  items.forEach(item => {
-    count = count + item.price * item.quantity
-  })
   return (
     <>
       <section className={`${styles.cartContainer} col col-lg-5 col-sm-12`}>
@@ -86,9 +57,7 @@ const Cart = ({ icons }) => {
           {items.map((item) => (
             <ProductListItem
               item={item}
-              icons={icons}
               key={item.id}
-              onCartItemsChange={handleCartItemsChange}
             />
           ))}
         </section>
