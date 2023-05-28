@@ -1,5 +1,3 @@
-import { useContext } from 'react'
-import { AppContext } from '../../context/AppContext'
 import styles from './Header.module.scss'
 
 const navItemList = ['男款', '女款', '最新消息', '客製商品', '聯絡我們']
@@ -13,8 +11,7 @@ const NavItem = ({ item }) => {
   )
 }
 
-const Header = () => {
-  const { icons } = useContext(AppContext)
+const Header = ({ icons }) => {
   return (
     <>
       <header className={styles.siteHeader}>
