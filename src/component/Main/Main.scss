@@ -2,13 +2,13 @@
 $screen-break-point: 749.5px;
 
 // --- style
-main.site-main {
+main.siteMain {
   margin-top: 80px;
   padding-left: var(--site-edge-margin);
   padding-right: var(--site-edge-margin);
   background-color: inherit;
 
-  .main-container {
+  .mainContainer {
     display: flex;
     position: relative;
     max-width: 1100px;
